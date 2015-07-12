@@ -10,16 +10,30 @@
         console.log(msg);
         
         var id = ytVidId(msg.content);
+        
         if(id != false)
         {
-           inQue=true;
-           var now = new Date(Date.now());
-            var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+          var title = '';
+          var now = new Date(Date.now());
+          var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+          
+          $.ajax({
+            url: "https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" + id + "&key=AIzaSyCgmZzaMiTxHBCw_8tUs9BriUPgwdAvE2M",
+            dataType: "jsonp",
+            success: function(data){
+               title = data.items[0].snippet.title; 
+               var mySong = "<b>" + msg.userid + '</b>: ' + msg.username + " <a href="+ msg.content  + ">" + title + "</a>" + "[ <i>" + formatted + '</i> ]</br>';
             
-           $('#songlist').append(
-                "<b>" + msg.userid + '</b>: ' + msg.username + " -> " + msg.content + " [ <i>" + formatted + '</i> ]</br>'
-            );
-            
+                 $('#songlist').append(
+                      mySong
+                  );
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+                  console.log (textStatus, + ' | ' + errorThrown);
+              }
+            });
+
+            inQue=true;  
             lists.push(id);
             console.log(lists);
                

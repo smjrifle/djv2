@@ -13,7 +13,7 @@ app.set('view engine', 'html');
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', __dirname + '/public/views');
 
-app.get('/chat', function(req, res){
+app.get('/', function(req, res){
 	res.render('index.html');
 });
 
@@ -66,11 +66,11 @@ io.on('connection', function(socket){
 	});
 	
 	//监听用户发布聊天内容
-	socket.on('message', function(obj){
-		//向所有客户端广播发布的消息
-		io.emit('message', obj);
-		console.log(obj.username+" message : "+obj.content);
-	});
+		socket.on('message', function(obj){
+			//向所有客户端广播发布的消息
+			io.emit('message', obj);
+			console.log(obj.username+" message : "+obj.content);
+		});
   
 });
 
