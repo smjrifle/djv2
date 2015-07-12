@@ -66,4 +66,4 @@ $RECYCLE.BIN/
 
 # sftp configuration file
 sftp-config.json
-
+config.js
