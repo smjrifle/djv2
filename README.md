@@ -3,11 +3,11 @@
 ```
 git clone  https://github.com/greenspray/djv2.git
 cd djv2
-node install 
+node install
 npm server.js
 ```
 
-## The IDEA 
+## The IDEA
 
 Working for a long time in a group gets boring without some music and more boring when everytime the same person plays his same fucking music all the fucking time. So this is solution.
 
@@ -26,7 +26,7 @@ This app is basically a chat that takes the youtube link and ques it. The number
 2. Detect youtube link in a converstation and automatically que it
 3. Integrate Alogrithm X, the DJ algorithm
 4. Make an android app
-
-
+5. Now playing song in the Chat
+6. Put a mute key from any chat
 
 
