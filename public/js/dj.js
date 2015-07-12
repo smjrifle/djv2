@@ -27,6 +27,7 @@
                  $('#songlist').append(
                       mySong
                   );
+                 
               },
               error: function(jqXHR, textStatus, errorThrown) {
                   console.log (textStatus, + ' | ' + errorThrown);
@@ -35,7 +36,6 @@
 
             inQue=true;  
             lists.push(id);
-            console.log(lists);
                
           }
 
@@ -75,7 +75,6 @@
       var currentIndex = 0;
       function onPlayerStateChange(event) {
            var state = player.getPlayerState();
-           console.log(state + " event");
            setInterval(function(){
            var state = player.getPlayerState();
             if(state == 0 && inQue==true){
@@ -83,7 +82,6 @@
                 player.playVideo();
                 currentIndex++;
                 inQue=false;
-                console.log("in here");
            }
 
 
@@ -105,3 +103,28 @@
           player.cueVideoById(mylist[i]);
         }
       }
+
+      $('#btnPrevious').click(function(){
+        if(typeof lists[currentIndex-1] != 'undefined'){
+        currentIndex--;
+        player.cueVideoById(lists[currentIndex]);
+        player.stopVideo();
+      }
+      });
+
+       $('#btnNext').click(function(){
+        if(typeof lists[currentIndex+1] != 'undefined'){
+        currentIndex++;
+        player.cueVideoById(lists[currentIndex]);
+        player.stopVideo();player.clearVideo();
+      }
+      });
+
+
+      $('#btnPlay').click(function(){
+        console.log(player.getPlayerState());
+        if( player.getPlayerState() == 2 || player.getPlayerState() == 5 ) // paused or cued 
+          player.playVideo();
+        else
+          player.pauseVideo();
+      });

@@ -11,15 +11,35 @@
       top: 30px;
       left: -50px;
     }​
+    #songlist{
+      position: relative;
+      background-color:#efeff4;
+      width: 500px;
+      height: 700px;
+    }
   </style>
 </head>
 <body>
   <div class="col-md-6 col-md-offset-6">
     	<div id="player"></div>
   </div>
-  <div class="col-md-6">
-        <h3> Song Request History </h3>
-        <div id="songlist"></div>
+
+  <div class="col-md-5">
+
+        <b> <h3> Song Request History </h3> </b>
+        <div class="row">
+          <div class="container" id = "controls" >
+            <a class="btn btn-primary" id="btnPrevious">Previous</a>
+            <a class="btn btn-primary" id="btnPlay">Play</a>
+            <a class="btn btn-primary" id="btnNext">Next</a>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="container">
+            <div id="songlist"></div>
+          </div>
+        </div>
   </div>
 </body>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
