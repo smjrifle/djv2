@@ -3,8 +3,8 @@
 ```
 git clone  https://github.com/greenspray/djv2.git
 cd djv2
-node install
-npm server.js
+npm install
+node server.js
 ```
 
 ## The IDEA
