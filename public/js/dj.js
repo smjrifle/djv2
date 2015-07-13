@@ -1,8 +1,8 @@
 
       var lists = [];
       var songHold = 0;
-      
-      var socket = io.connect('127.0.0.1:3000');
+
+      var socket = io.connect('110.44.126.23:3000');
       var inQue = false;
 
       String.prototype.capitalize = function() {
@@ -10,35 +10,35 @@
       }
       socket.on('message', function(msg){
         console.log(msg);
-        
+
         var id = ytVidId(msg.content);
-        
+
         if(id != false)
         {
           var title = '';
           var now = new Date(Date.now());
           var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-          
+
           $.ajax({
             url: "https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" + id + "&key=AIzaSyCgmZzaMiTxHBCw_8tUs9BriUPgwdAvE2M",
             dataType: "jsonp",
             success: function(data){
-               title = data.items[0].snippet.title; 
+               title = data.items[0].snippet.title;
                var mySong = "<i>" + msg.userid + "</i> [ " + formatted +  ']: <b>' + msg.username.capitalize() + "</b> <a href="+ msg.content  + ">" + title + "</a>" + '</br>';
-            
+
                  $('#songlist').append(
                       mySong
                   );
-                 
+
               },
               error: function(jqXHR, textStatus, errorThrown) {
                   console.log (textStatus, + ' | ' + errorThrown);
               }
             });
 
-            inQue=true;  
+            inQue=true;
             lists.push(id);
-               
+
           }
 
     });
@@ -66,7 +66,7 @@
 
       // 4. The API will call this function when the video player is ready.
       function onPlayerReady(event) {
-        
+
         event.target.playVideo();
       }
 
@@ -88,13 +88,13 @@
 
 
            },500); // check in 1 second
-           
-    
+
+
    }
       function stopVideo() {
         player.stopVideo();
       }
- 
+
      function ytVidId(url) {
        var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
        return (url.match(p)) ? RegExp.$1 : false;
@@ -115,7 +115,7 @@
         player.clearVideo();
         player.playVideo();
       }
-      
+
 
       });
 
@@ -131,8 +131,8 @@
 
 
       $('#btnPlay').click(function(){
-        
-        if( player.getPlayerState() == 2 || player.getPlayerState() == 5 ) // paused 
+
+        if( player.getPlayerState() == 2 || player.getPlayerState() == 5 ) // paused
           player.playVideo();
         else
           player.pauseVideo();
