@@ -16,6 +16,7 @@
       background-color:#efeff4;
       width: 500px;
       height: 700px;
+      
     }
   </style>
 </head>
@@ -28,17 +29,24 @@
 
         <b> <h3> Song Request History </h3> </b>
         <div class="row">
-          <div class="container" id = "controls" >
-            <a class="btn btn-primary" id="btnPrevious">Previous</a>
-            <a class="btn btn-primary" id="btnPlay">Play</a>
-            <a class="btn btn-primary" id="btnNext">Next</a>
+          <div class="col-md-4 col-md-offset-5" id ="controls" >
+
+            <button type="button" id="btnPrevious" class="btn btn-default" aria-label="Left Align">
+              <span class="glyphicon glyphicon-backward glyphicon-align-left" aria-hidden="true"></span>
+            </button>
+            <button type="button" id="btnPlay" class="btn btn-default" aria-label="Left Align">
+              <span class="glyphicon glyphicon-play glyphicon-align-left" aria-hidden="true"></span>
+            </button>
+            <button type="button" id="btnNext" class="btn btn-default" aria-label="Left Align">
+              <span class="glyphicon glyphicon-forward glyphicon-align-left" aria-hidden="true"></span>
+            </button>
           </div>
         </div>
         <br>
-          
-              <ul class="list-group" id="songlist"> </ul>
-          
+                <div id="songlist"></div>
         </div>
+          
+    </div>
   </div>
 </body>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>

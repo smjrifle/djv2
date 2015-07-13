@@ -5,7 +5,9 @@
       var socket = io.connect('127.0.0.1:3000');
       var inQue = false;
 
-      
+      String.prototype.capitalize = function() {
+         return this.charAt(0).toUpperCase() + this.slice(1);
+      }
       socket.on('message', function(msg){
         console.log(msg);
         
@@ -22,7 +24,7 @@
             dataType: "jsonp",
             success: function(data){
                title = data.items[0].snippet.title; 
-               var mySong = "<b>" + msg.userid + "</b> [ <i>" + formatted + '</i> ]: ' + msg.username + " <a href="+ msg.content  + ">" + title + "</a>" + '</br>';
+               var mySong = "<i>" + msg.userid + "</i> [ " + formatted +  ']: <b>' + msg.username.capitalize() + "</b> <a href="+ msg.content  + ">" + title + "</a>" + '</br>';
             
                  $('#songlist').append(
                       mySong
@@ -106,12 +108,15 @@
 
       $('#btnPrevious').click(function(){
         if(typeof lists[currentIndex-1] != 'undefined'){
+
         player.stopVideo();
         currentIndex--;
         player.cueVideoById(lists[currentIndex]);
         player.clearVideo();
         player.playVideo();
       }
+      
+
       });
 
        $('#btnNext').click(function(){
@@ -126,7 +131,7 @@
 
 
       $('#btnPlay').click(function(){
-        console.log(player.getPlayerState());
+        
         if( player.getPlayerState() == 2 || player.getPlayerState() == 5 ) // paused 
           player.playVideo();
         else
