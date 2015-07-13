@@ -9,7 +9,7 @@
          return this.charAt(0).toUpperCase() + this.slice(1);
       }
       socket.on('message', function(msg){
-        console.log(msg);
+        
         
         var id = ytVidId(msg.content);
         
@@ -74,20 +74,17 @@
       //    The function indicates that when playing a video (state=1),
       //    the player should play for six seconds and then stop.
       var done = false;
-      var currentIndex = 0;
+      var currentIndex = -1;
       function onPlayerStateChange(event) {
-           var state = player.getPlayerState();
            setInterval(function(){
            var state = player.getPlayerState();
             if(state == 0 && inQue==true){
+                currentIndex++;
                 player.cueVideoById(lists[currentIndex]);
                 player.playVideo();
-                currentIndex++;
                 inQue=false;
            }
-
-
-           },500); // check in 1 second
+          },500); // check in 1 second
            
     
    }
@@ -108,25 +105,18 @@
 
       $('#btnPrevious').click(function(){
         if(typeof lists[currentIndex-1] != 'undefined'){
-
         player.stopVideo();
         currentIndex--;
         player.cueVideoById(lists[currentIndex]);
         player.clearVideo();
         player.playVideo();
       }
-      
+
 
       });
 
        $('#btnNext').click(function(){
-        if(typeof lists[currentIndex+1] != 'undefined'){
-        player.stopVideo();
-        currentIndex++;
-        player.cueVideoById(lists[currentIndex]);
-        player.clearVideo();
-        player.playVideo();
-      }
+          nextVideo();
       });
 
 
@@ -137,3 +127,15 @@
         else
           player.pauseVideo();
       });
+
+
+      function nextVideo(){
+           if(typeof lists[currentIndex+1] != 'undefined'){
+              player.stopVideo();
+              currentIndex++;
+              player.cueVideoById(lists[currentIndex]);
+              player.clearVideo();
+              player.playVideo();
+            }
+      }
+
