@@ -48,6 +48,7 @@ io.on('connection', function(socket){
 			console.log(obj.username+' has left the chat room');
 		}
 
+		});
 
 	socket.on('message', function(obj){
 			io.emit('message', obj);
@@ -55,9 +56,10 @@ io.on('connection', function(socket){
 		});
 
 
-		});
 	});
-	var server = http.listen(config.port, function(){
+	var server = http.listen(config.port, [config.host],function(){
 	  	var port = server.address().port;
-	  console.log('Listening in port %s',  port);
+	  	var address = server.address().address;
+	  	console.log(address);
+	  console.log('Listening in port http://%s:%s',address,  port);
 	});

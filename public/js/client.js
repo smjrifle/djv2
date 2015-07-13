@@ -100,9 +100,9 @@
 			this.scrollToBottom();
 
 			//连接websocket后端服务器
-			this.socket = io.connect('110.44.126.23:3000');
+			// this.socket = io.connect('110.44.126.23:3000');
 			
-      		// this.socket  = io.connect('127.0.0.1:3000');
+      		this.socket  = io.connect('127.0.0.1:3000');
 
 			//告诉服务器端有用户登录
 			this.socket.emit('login', {userid:this.userid, username:this.username});
