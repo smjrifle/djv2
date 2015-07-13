@@ -79,9 +79,7 @@
            setInterval(function(){
            var state = player.getPlayerState();
             if(state == 0 && inQue==true){
-                currentIndex++;
-                player.cueVideoById(lists[currentIndex]);
-                player.playVideo();
+                nextVideo();
                 inQue=false;
            }
           },500); // check in 1 second
@@ -116,7 +114,6 @@
       });
 
        $('#btnNext').click(function(){
-          nextVideo();
       });
 
 
