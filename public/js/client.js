@@ -21,18 +21,20 @@
 		},
 		//退出，本例只是一个简单的刷新
 		logout:function(){
-			//this.socket.disconnect();
+			this.socket.disconnect();
 			location.reload();
 		},
 		//提交聊天消息内容
 		submit:function(){
 			var content = d.getElementById("content").value;
+
 			if(content != ''){
 				var obj = {
 					userid: this.userid,
 					username: this.username,
 					content: content
 				};
+				
 				this.socket.emit('message', obj);
 
 				d.getElementById("content").value = '';
@@ -60,13 +62,13 @@
 					separator = ',';
 				}
 		    }
-			d.getElementById("onlinecount").innerHTML = ' There are currently '+onlineCount+' Online, online list:'+userhtml;
+			d.getElementById("onlinecount").innerHTML = ' There are currently '+onlineCount+' chatters online :'+userhtml;
 
 			//添加系统消息
 			var html = '';
 			html += '<div class="msg-system">';
 			html += user.username;
-			html += (action == 'login') ? ' Joined the chat' : ' Signed off ';
+			html += (action == 'login') ? ' joined the chat' : ' Signed off ';
 			html += '</div>';
 			var section = d.createElement('section');
 			section.className = 'system J-mjrlinkWrap J-cutMsg';
@@ -99,6 +101,8 @@
 
 			//连接websocket后端服务器
 			this.socket = io.connect('110.44.126.23:3000');
+			
+      		// this.socket  = io.connect('127.0.0.1:3000');
 
 			//告诉服务器端有用户登录
 			this.socket.emit('login', {userid:this.userid, username:this.username});

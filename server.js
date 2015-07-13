@@ -21,27 +21,23 @@ app.get('/dj', function(req, res){
 	res.render('dj.html');
 });
 
-
-
-
 var onlineUsers = {};
 var onlineCount = 0;
 io.on('connection', function(socket){
 	console.log('a user connected');
+	
 	socket.on('login', function(obj){
 		socket.name = obj.userid;
 		if(!onlineUsers.hasOwnProperty(obj.userid)) {
 			onlineUsers[obj.userid] = obj.username;
 			onlineCount++;
 		}
-		io.emit('login', {onlineUsers:onlineUsers, onlineCount:onlineCount, user:obj});
-		console.log(obj.username+'Joined the chat room');
-	});
 
 		io.emit('login', {onlineUsers:onlineUsers, onlineCount:onlineCount, user:obj});
-		console.log(obj.username+'Joined the chat room');
-	});
+		console.log(obj.username+' joined the chat room');
 
+		});
+		
 	socket.on('disconnect', function(){
 
 		if(onlineUsers.hasOwnProperty(socket.name)) {
@@ -52,14 +48,16 @@ io.on('connection', function(socket){
 			console.log(obj.username+' has left the chat room');
 		}
 
-		socket.on('message', function(obj){
+
+	socket.on('message', function(obj){
 			io.emit('message', obj);
 			console.log(obj.username+" message : "+obj.content);
 		});
 
-});
 
-	var server = http.listen(config.port,function(){
+		});
+	});
+	var server = http.listen(config.port, function(){
 	  	var port = server.address().port;
 	  console.log('Listening in port %s',  port);
 	});

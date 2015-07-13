@@ -3,7 +3,9 @@
       var songHold = 0;
 
       var socket = io.connect('110.44.126.23:3000');
+      // var socket = io.connect('127.0.0.1:3000');
       var inQue = false;
+      
 
       String.prototype.capitalize = function() {
          return this.charAt(0).toUpperCase() + this.slice(1);
