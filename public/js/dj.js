@@ -12,12 +12,14 @@
       }
       socket.on('message', function(msg){
  var id = '';
- if(msg.content.indexOf('volume') > -1) {
-        changeVolume(msg.content.substring(msg.content.indexOf('e') + 1));
+ if(msg.content.indexOf('setvolume') > -1) {
+        changeVolume(msg.content.substring(msg.content.indexOf('me') + 2));
       }
       else {
         switch(msg.content.toLowerCase()) {
+	  case 'mute':
           case 'pause': pauseVideo(); break;
+	  case 'unmute':
 	  case 'resume':
           case 'play': playVideo(); break;
           case 'stop': stopVideo(); break;
