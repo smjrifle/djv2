@@ -3,7 +3,7 @@
       var songHold = 0;
 
       // var socket = io.connect('110.44.126.23:3000');
-      var socket = io.connect('127.0.0.1:3000');
+      var socket = io.connect('84.201.37.192:3000');
       var inQue = false;
       
 
@@ -11,8 +11,22 @@
          return this.charAt(0).toUpperCase() + this.slice(1);
       }
       socket.on('message', function(msg){
-        var id = ytVidId(msg.content);
-
+ var id = '';
+ if(msg.content.indexOf('volume') > -1) {
+        changeVolume(msg.content.substring(msg.content.indexOf('e') + 1));
+      }
+      else {
+        switch(msg.content.toLowerCase()) {
+          case 'pause': pauseVideo(); break;
+	  case 'resume':
+          case 'play': playVideo(); break;
+          case 'stop': stopVideo(); break;
+          case 'next': nextVideo(); break;
+	  case 'previous':
+          case 'prev': prevVideo(); break;
+          default: id = ytVidId(msg.content);
+        }
+      }
         if(id != false)
         {
           var title = '';
@@ -87,7 +101,12 @@
       function stopVideo() {
         player.stopVideo();
       }
-
+ function pauseVideo() {
+      player.pauseVideo();
+    }
+    function playVideo() {
+      player.playVideo();
+    }
      function ytVidId(url) {
        var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
        return (url.match(p)) ? RegExp.$1 : false;
@@ -124,13 +143,25 @@
           player.pauseVideo();
       });
 
-      function nextVideo(){
-           if(typeof lists[currentIndex+1] != 'undefined'){
-              player.stopVideo();
-              currentIndex++;
-              player.cueVideoById(lists[currentIndex]);
-              player.clearVideo();
-              player.playVideo();
-            }
-      }
+ function nextVideo(){
+   if(typeof lists[currentIndex+1] != 'undefined'){
+    player.stopVideo();
+    currentIndex++;
+    player.cueVideoById(lists[currentIndex]);
+    player.clearVideo();
+    player.playVideo();
+  }
+}
+function prevVideo(){
+  if(typeof lists[currentIndex-1] != 'undefined'){
+    player.stopVideo();
+    currentIndex--;
+    player.cueVideoById(lists[currentIndex]);
+    player.clearVideo();
+    player.playVideo();
+  }
+}
+function changeVolume(volNum){
+  player.setVolume(volNum);
+}
 
